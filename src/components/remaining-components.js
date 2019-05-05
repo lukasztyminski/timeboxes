@@ -144,7 +144,7 @@ class CurrentTimebox extends React.Component {
 
 class EditableTimebox extends React.Component {
     state = {
-        title: "Uczę się CSS!",
+        title: "Uczę się Testować!",
         totalTimeInMinutes: 20,
         isEditable: true
     }
@@ -226,9 +226,9 @@ class TimeboxCreator extends React.Component {
 class TimeboxList extends React.Component {
     state = {
         timeboxes: [
-            { id: "a", title: "Uczę się CSS in JS", totalTimeInMinutes: 25 },
-            { id: "b", title: "Uczę się SASS", totalTimeInMinutes: 15 },
-            { id: "c", title: "Uczę się BEM", totalTimeInMinutes: 5 },
+            { id: "a", title: "Uczę się o console", totalTimeInMinutes: 25 },
+            { id: "b", title: "Uczę się debugować", totalTimeInMinutes: 15 },
+            { id: "c", title: "Uczę się TDD", totalTimeInMinutes: 5 },
         ]
     }
 
