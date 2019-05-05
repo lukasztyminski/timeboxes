@@ -54,4 +54,4 @@ class TimeboxList extends React.Component {
     }
 }
 
-export { TimeboxList };
+export default TimeboxList;
