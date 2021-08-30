@@ -10,6 +10,12 @@ export function useForceUpdate() {
   return forceUpdate;
 }
 
+export function wait(ms = 1000) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 export const connectToRedux = (mapStateToProps) => {
   return function (Component) {
     const ConnectedComponent = (props) => {
