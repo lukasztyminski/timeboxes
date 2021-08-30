@@ -3,11 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "inspirational-quotes": "^1.0.8",
+    "jsonwebtoken": "^8.5.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.2.4",
     "react-scripts": "3.0.0",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
     "uuid": "3.3.2"
   },
   "scripts": {

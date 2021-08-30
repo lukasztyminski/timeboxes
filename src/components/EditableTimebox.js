@@ -1,47 +1,61 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import {
+  makeTimeboxCurrent,
+  startEditingTimebox,
+  stopEditingTimebox,
+} from '../timeboxesActions';
+import { isTimeboxEdited } from '../reducers';
+import Timebox from './Timebox';
+import TimeboxEditor from './TimeboxEditor';
 
-import TimeboxEditor from "./TimeboxEditor";
-import CurrentTimebox from "./CurrentTimebox";
+const EditableTimebox = ({
+  timebox,
+  isEdited,
+  onCancel,
+  onUpdate,
+  onEdit,
+  onDelete,
+  onMakeCurrent,
+}) => {
+  return (
+    <>
+      {isEdited ? (
+        <TimeboxEditor
+          initialTitle={timebox.title}
+          initialTotalTimeInMinutes={timebox.totalTimeInMinutes}
+          onCancel={onCancel}
+          onUpdate={onUpdate}
+        />
+      ) : (
+        <Timebox
+          key={timebox.id}
+          title={timebox.title}
+          totalTimeInMinutes={timebox.totalTimeInMinutes}
+          onDelete={onDelete}
+          onEdit={onEdit}
+          onMakeCurrent={onMakeCurrent}
+        />
+      )}
+    </>
+  );
+};
 
-class EditableTimebox extends React.Component {
-    state = {
-        title: "Uczę się Testować!",
-        totalTimeInMinutes: 3,
-        isEditable: false
-    }
-    handleTitleChange = (event) => {
-        this.setState({ title: event.target.value });
-    }
-    handleTotalTimeInMinutesChange = (event) => {
-        this.setState({ totalTimeInMinutes: event.target.value });
-    }
-    handleConfirm = () => {
-        this.setState({ isEditable: false });
-    }
-    handleEdit = () => {
-        this.setState({ isEditable: true });
-    }
-    render() {
-        const { title, totalTimeInMinutes, isEditable } = this.state;
-        return (
-            <>
-                <TimeboxEditor 
-                    title={title}
-                    totalTimeInMinutes={totalTimeInMinutes}
-                    isEditable={isEditable}
-                    onConfirm={this.handleConfirm}
-                    onTitleChange={this.handleTitleChange}
-                    onTotalTimeInMinutesChange={this.handleTotalTimeInMinutesChange}
-                />
-                <CurrentTimebox 
-                    isEditable={isEditable}
-                    title={title} 
-                    totalTimeInMinutes={totalTimeInMinutes} 
-                    onEdit={this.handleEdit}
-                />
-            </>
-        )
-    }
-}
+const mapStateToProps = (state, ownProps) => ({
+  isEdited: isTimeboxEdited(state, ownProps.timebox),
+});
 
-export default EditableTimebox;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const onCancel = () => dispatch(stopEditingTimebox());
+  const onEdit = () => {
+    dispatch(startEditingTimebox(ownProps.timebox.id));
+  };
+  const onMakeCurrent = () => dispatch(makeTimeboxCurrent(ownProps.timebox));
+  return {
+    onEdit,
+    onCancel,
+    onMakeCurrent,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditableTimebox);
